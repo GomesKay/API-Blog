@@ -1,6 +1,6 @@
 import express from "express"
 import cors from "cors"
-import { postRoutes } from "./routes/post-routes"
+import { postRoutes } from "./routes/routes"
 
 export const app = express()
 

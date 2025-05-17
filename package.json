@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch src/server.ts",
     "start": "node build/server.js",
-    "build": "tsup src --out-dir build",
+    "dev": "npm run prisma:generate && tsx watch src/server.ts",
+    "build": "npm run prisma:generate && tsup src --out-dir build",
+    "prisma:generate": "prisma generate",
     "biome": "biome format .",
     "biome:check": "biome check ."
   },

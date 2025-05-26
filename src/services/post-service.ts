@@ -5,6 +5,10 @@ type CreatePostInput = {
   content: string
 }
 
+type DeletePost = {
+  id: string
+}
+
 export async function getAllPosts() {
   return await prisma.post.findMany()
 }
@@ -19,4 +23,8 @@ export async function createPost({ title, content }: CreatePostInput) {
 
 export async function updatePost() {}
 
-export async function deletePost() {}
+export async function deletePost({ id }: DeletePost) {
+  return await prisma.post.delete({
+    where: { id },
+  })
+}

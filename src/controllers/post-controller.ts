@@ -1,10 +1,14 @@
 import { z } from "zod"
 import type { Request, Response } from "express"
-import { createPost, getAllPosts } from "../services/post-service"
+import { createPost, deletePost, getAllPosts } from "../services/post-service"
 
 const createPostSchema = z.object({
   title: z.string(),
   content: z.string(),
+})
+
+const paramsSchema = z.object({
+  id: z.string(),
 })
 
 export async function getPostsController(req: Request, res: Response) {
@@ -32,4 +36,14 @@ export async function addPostController(req: Request, res: Response) {
 
 export async function updatePostController() {}
 
-export async function removePostController() {}
+export async function removePostController(req: Request, res: Response) {
+  try {
+    const { id } = paramsSchema.parse(req.params)
+
+    await deletePost({ id })
+
+    res.status(200).send({ message: "Post deletado" })
+  } catch (error) {
+    res.status(500).json({ error: "Erro ao deletar o post" })
+  }
+}

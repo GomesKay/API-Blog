@@ -1,6 +1,11 @@
 import { z } from "zod"
 import type { Request, Response } from "express"
-import { createPost, deletePost, getAllPosts } from "../services/post-service"
+import {
+  createPost,
+  deletePost,
+  getAllPosts,
+  getPostById,
+} from "../services/post-service"
 
 const createPostSchema = z.object({
   title: z.string(),
@@ -21,7 +26,20 @@ export async function getPostsController(req: Request, res: Response) {
   }
 }
 
-export async function getPostController() {}
+export async function getPostController(req: Request, res: Response) {
+  try {
+    const { id } = paramsSchema.parse(req.params)
+    const post = await getPostById({ id })
+
+    if (!post) {
+      res.status(404).json({ error: "Post não encontrado" })
+    }
+
+    res.status(200).json(post)
+  } catch (error) {
+    res.status(500).json({ error: "Erro ao obter o post" })
+  }
+}
 
 export async function addPostController(req: Request, res: Response) {
   try {

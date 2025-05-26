@@ -5,6 +5,10 @@ type CreatePostInput = {
   content: string
 }
 
+type getIdPost = {
+  id: string
+}
+
 type DeletePost = {
   id: string
 }
@@ -13,7 +17,11 @@ export async function getAllPosts() {
   return await prisma.post.findMany()
 }
 
-export async function getPostById() {}
+export async function getPostById({ id }: getIdPost) {
+  return await prisma.post.findUnique({
+    where: { id },
+  })
+}
 
 export async function createPost({ title, content }: CreatePostInput) {
   return await prisma.post.create({

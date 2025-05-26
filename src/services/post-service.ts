@@ -9,6 +9,12 @@ type getIdPost = {
   id: string
 }
 
+type UpdatePost = {
+  id: string
+  title: string
+  content: string
+}
+
 type DeletePost = {
   id: string
 }
@@ -29,7 +35,12 @@ export async function createPost({ title, content }: CreatePostInput) {
   })
 }
 
-export async function updatePost() {}
+export async function updatePost({ id, title, content }: UpdatePost) {
+  return await prisma.post.update({
+    where: { id },
+    data: { title, content },
+  })
+}
 
 export async function deletePost({ id }: DeletePost) {
   return await prisma.post.delete({

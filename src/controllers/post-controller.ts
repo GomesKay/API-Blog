@@ -5,9 +5,10 @@ import {
   deletePost,
   getAllPosts,
   getPostById,
+  updatePost,
 } from "../services/post-service"
 
-const createPostSchema = z.object({
+const bodySchema = z.object({
   title: z.string(),
   content: z.string(),
 })
@@ -43,7 +44,7 @@ export async function getPostController(req: Request, res: Response) {
 
 export async function addPostController(req: Request, res: Response) {
   try {
-    const { title, content } = createPostSchema.parse(req.body)
+    const { title, content } = bodySchema.parse(req.body)
     const newPost = await createPost({ title, content })
 
     res.status(201).json(newPost)
@@ -52,7 +53,21 @@ export async function addPostController(req: Request, res: Response) {
   }
 }
 
-export async function updatePostController() {}
+export async function updatePostController(req: Request, res: Response) {
+  try {
+    const { id } = paramsSchema.parse(req.params)
+    const { title, content } = bodySchema.parse(req.body)
+    const updatedPost = await updatePost({ id, title, content })
+
+    if (!updatedPost) {
+      res.status(404).json({ error: "Post não encontrado" })
+    }
+
+    res.status(200).json(updatedPost)
+  } catch (error) {
+    res.status(500).json({ error: "Erro ao atualizar o post" })
+  }
+}
 
 export async function removePostController(req: Request, res: Response) {
   try {

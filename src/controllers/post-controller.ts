@@ -1,4 +1,3 @@
-import { z } from "zod"
 import type { Request, Response } from "express"
 import {
   createPost,
@@ -7,15 +6,7 @@ import {
   getPostById,
   updatePost,
 } from "../services/post-service"
-
-const bodySchema = z.object({
-  title: z.string(),
-  content: z.string(),
-})
-
-const paramsSchema = z.object({
-  id: z.string(),
-})
+import { paramsSchema, bodySchema } from "../schemas/post-schema"
 
 export async function getPostsController(req: Request, res: Response) {
   try {
@@ -34,6 +25,7 @@ export async function getPostController(req: Request, res: Response) {
 
     if (!post) {
       res.status(404).json({ error: "Post não encontrado" })
+      return
     }
 
     res.status(200).json(post)
@@ -61,6 +53,7 @@ export async function updatePostController(req: Request, res: Response) {
 
     if (!updatedPost) {
       res.status(404).json({ error: "Post não encontrado" })
+      return
     }
 
     res.status(200).json(updatedPost)

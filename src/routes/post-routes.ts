@@ -9,8 +9,9 @@ import {
 
 export const postRoutes = Router()
 
-postRoutes.get("/posts", getPostsController)
-postRoutes.get("/posts/:id", getPostController)
-postRoutes.post("/posts", addPostController)
-postRoutes.put("/posts/:id", updatePostController)
-postRoutes.delete("/posts/:id", removePostController)
+postRoutes.route("/posts").get(getPostsController).post(addPostController)
+postRoutes
+  .route("/posts/:id")
+  .get(getPostController)
+  .put(updatePostController)
+  .delete(removePostController)

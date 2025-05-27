@@ -7,12 +7,19 @@ import type {
 } from "../types/post"
 
 export async function getAllPosts() {
-  return await prisma.post.findMany()
+  return await prisma.post.findMany({
+    include: {
+      comments: true,
+    },
+  })
 }
 
 export async function getPostById({ id }: GetPostByIdInput) {
   return await prisma.post.findUnique({
     where: { id },
+    include: {
+      comments: true,
+    },
   })
 }
 

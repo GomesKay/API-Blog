@@ -1,12 +1,10 @@
 import { Router } from "express"
 import {
   addCommentController,
-  getCommentsController,
   removeCommentController,
 } from "../controllers/comment-controller"
 
 export const commentRoutes = Router()
 
-commentRoutes.get("/comments", getCommentsController)
-commentRoutes.post("/comments", addCommentController)
-commentRoutes.delete("/comments/:id", removeCommentController)
+commentRoutes.post("/posts/:postId/comment", addCommentController)
+commentRoutes.delete("/posts/:postId/comment/:id", removeCommentController)

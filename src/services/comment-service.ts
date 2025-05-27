@@ -1,6 +1,14 @@
-export async function getAllComments() {}
+import { prisma } from "../lib/prisma"
 
-export async function createComment() {}
+type CreateCommentInput = {
+  postId: string
+  content: string
+}
+
+export async function createComment({ postId, content }: CreateCommentInput) {
+  return await prisma.comment.create({
+    data: { postId, content },
+  })
+}
 
 export async function deleteComment() {}
-

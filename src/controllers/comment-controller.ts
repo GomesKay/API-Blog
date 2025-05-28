@@ -1,24 +1,15 @@
 import type { Request, Response } from "express"
-import { z } from "zod"
 import { createComment, deleteComment } from "../services/comment-service"
-
-const paramsSchema = z.object({
-  postId: z.string(),
-})
-
-const paramsIdSchema = z.object({
-  id: z.string(),
-  postId: z.string(),
-})
-
-const bodySchema = z.object({
-  content: z.string(),
-})
+import {
+  paramsCommentSchema,
+  bodyCommentSchema,
+  paramsIdCommentSchema,
+} from "../schemas/comment-schema"
 
 export async function addCommentController(req: Request, res: Response) {
   try {
-    const { postId } = paramsSchema.parse(req.params)
-    const { content } = bodySchema.parse(req.body)
+    const { postId } = paramsCommentSchema.parse(req.params)
+    const { content } = bodyCommentSchema.parse(req.body)
 
     const newComment = await createComment({ postId, content })
 
@@ -30,7 +21,7 @@ export async function addCommentController(req: Request, res: Response) {
 
 export async function removeCommentController(req: Request, res: Response) {
   try {
-    const { id, postId } = paramsIdSchema.parse(req.params)
+    const { id, postId } = paramsIdCommentSchema.parse(req.params)
 
     await deleteComment({ id, postId })
 

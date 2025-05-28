@@ -6,7 +6,7 @@ import {
   getPostById,
   updatePost,
 } from "../services/post-service"
-import { paramsSchema, bodySchema } from "../schemas/post-schema"
+import { paramsPostSchema, bodyPostSchema } from "../schemas/post-schema"
 
 export async function getPostsController(req: Request, res: Response) {
   try {
@@ -20,7 +20,7 @@ export async function getPostsController(req: Request, res: Response) {
 
 export async function getPostController(req: Request, res: Response) {
   try {
-    const { id } = paramsSchema.parse(req.params)
+    const { id } = paramsPostSchema.parse(req.params)
     const post = await getPostById({ id })
 
     if (!post) {
@@ -36,7 +36,7 @@ export async function getPostController(req: Request, res: Response) {
 
 export async function addPostController(req: Request, res: Response) {
   try {
-    const { title, content } = bodySchema.parse(req.body)
+    const { title, content } = bodyPostSchema.parse(req.body)
     const newPost = await createPost({ title, content })
 
     res.status(201).json(newPost)
@@ -47,8 +47,8 @@ export async function addPostController(req: Request, res: Response) {
 
 export async function updatePostController(req: Request, res: Response) {
   try {
-    const { id } = paramsSchema.parse(req.params)
-    const { title, content } = bodySchema.parse(req.body)
+    const { id } = paramsPostSchema.parse(req.params)
+    const { title, content } = bodyPostSchema.parse(req.body)
     const updatedPost = await updatePost({ id, title, content })
 
     if (!updatedPost) {
@@ -64,7 +64,7 @@ export async function updatePostController(req: Request, res: Response) {
 
 export async function removePostController(req: Request, res: Response) {
   try {
-    const { id } = paramsSchema.parse(req.params)
+    const { id } = paramsPostSchema.parse(req.params)
 
     await deletePost({ id })
 

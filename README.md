@@ -1,6 +1,20 @@
 <h1 align="center">API Blog</h1>
 
+<img src="https://github.com/user-attachments/assets/f25877eb-0b9c-4fe9-850b-e0b73004f9e1" alt="" />
+
 <div align="center">
+
+  ## 🔧 Arquitetura da API
+
+  | HTTP | Rotas | Descrição |
+  | --- | --- | --- |
+  | `GET` | /posts | Retorna todos os posts |
+  | `GET` | /posts/:id | Retorna um post |
+  | `POST` | /posts | Cria novo post |
+  | `PUT` | /posts/:id | Atualiza um post |
+  | `DELETE` | /posts/:id | Deleta um post |
+  | `POST` | /posts/:postId/comment | Cria novo comentário |
+  | `DELETE` | /posts/:postId/comment/:id | Deleta um comentário |
 
   ## 🚀 Tecnologias
   <img title="Biome" src="https://github.com/user-attachments/assets/ca50003f-5d35-4299-9474-30b305ae07cb" alt="Biome" width="50" /> &nbsp;

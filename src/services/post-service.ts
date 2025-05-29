@@ -1,9 +1,9 @@
 import { prisma } from "../lib/prisma"
 import type {
-  CreatePostInput,
-  DeletePostInput,
   GetPostByIdInput,
+  CreatePostInput,
   UpdatePostInput,
+  DeletePostInput,
 } from "../types/post"
 
 export async function getAllPosts() {

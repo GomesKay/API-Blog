@@ -1,14 +1,5 @@
 import { prisma } from "../lib/prisma"
-
-type CreateCommentInput = {
-  postId: string
-  content: string
-}
-
-type DeleteCommentInput = {
-  id: string
-  postId: string
-}
+import type { CreateCommentInput, DeleteCommentInput } from "../types/comment"
 
 export async function createComment({ postId, content }: CreateCommentInput) {
   return await prisma.comment.create({

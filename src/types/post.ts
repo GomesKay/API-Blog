@@ -1,18 +1,9 @@
-export type CreatePostInput = {
-  title: string
-  content: string
-}
+import type { Post } from "../models/post-model"
 
-export type GetPostByIdInput = {
-  id: string
-}
+export type GetPostByIdInput = Pick<Post, "id">
 
-export type UpdatePostInput = {
-  id: string
-  title: string
-  content: string
-}
+export type CreatePostInput = Pick<Post, "title" | "content">
 
-export type DeletePostInput = {
-  id: string
-}
+export type UpdatePostInput = Omit<Post, "created_at" | "updated_at">
+
+export type DeletePostInput = Pick<Post, "id">
